@@ -1,0 +1,20 @@
+export const typeColorMap: Record<string, string> = {
+    grass: 'grass',
+    fire: 'fire',
+    water: 'water',
+    bug: 'bug',
+    poison: 'poison',
+    flying: 'flying',
+    electric: 'electric',
+    psychic: 'psychic',
+    rock: 'rock',
+    ground: 'ground',
+    fairy: 'fairy',
+    ice: 'ice',
+    dragon: 'dragon',
+    dark: 'dark',
+    ghost: 'ghost',
+    fighting: 'fighting',
+    steel: 'steel',
+    normal: 'normal'
+};
