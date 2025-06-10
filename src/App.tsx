@@ -1,4 +1,4 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { HashRouter, useRoutes } from 'react-router-dom';
 
 import ScrollToTop from './components/shared/ScrollToTop';
 import Router from './routes/Router';
@@ -11,9 +11,9 @@ function AppRoutes() {
 function App() {
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 
 }
