@@ -61,7 +61,6 @@ const HomePage = () => {
             if (value.length >= 3) {
                 searchPokemon(value);
             }
-            console.log('Searching for Pokémon:', value);
         }
     };
 
@@ -97,9 +96,13 @@ const HomePage = () => {
                     </div>
                 ) : (
                     <div className="pokemon-card-container">
-                        <h1 className="title">
-                            Pokémon <span className="subtitle">Pokedex</span>
-                        </h1>
+
+                        <div className='title-container'>
+                            <div className="pokeball"></div>
+                            <h1 className="title">
+                                Pokémon <span className="subtitle">Pokedex</span>
+                            </h1>
+                        </div>
 
                         <div className='search-and-delete-container'>
                             <div className="search-container">
