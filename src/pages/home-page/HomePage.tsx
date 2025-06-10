@@ -6,9 +6,10 @@ import PokemonCard from './components/PokemonCard';
 import DeleteSearchButton from './components/DeleteSearchButton';
 import WithoutResults from '../../components/without-results/WithoutResults';
 
-// HOOKS Y UTILIDADES
+// HOOKS, STORE Y UTILIDADES
 import { usePokemons } from './hooks/usePokemons';
 import { useSearchPokemon } from './hooks/useSearchPokemon';
+import { usePaginationStore } from '../../store/usePaginationStore';
 
 // ESTILOS
 import './homePage.scss';
@@ -33,7 +34,8 @@ const HomePage = () => {
         setLookingForPokemon,
     } = useSearchPokemon();
 
-    const [page, setPage] = useState<number>(1);
+    const { page, setPage } = usePaginationStore();
+
     const [searchValue, setSearchValue] = useState<string>('');
     const [showError, setShowError] = useState<boolean>(false);
 
@@ -73,12 +75,12 @@ const HomePage = () => {
 
     const goToPreviousPage = () => {
         if (page > 1) {
-            setPage((prev) => prev - 1);
+            setPage(page - 1);
         }
     };
 
     const goToNextPage = () => {
-        setPage((prev) => prev + 1);
+        setPage(page + 1);
     };
 
     useEffect(() => {
