@@ -61,6 +61,7 @@ const HomePage = () => {
             if (value.length >= 3) {
                 searchPokemon(value);
             }
+            console.log('Searching for Pokémon:', value);
         }
     };
 
