@@ -16,9 +16,11 @@ const PokemonDetail = () => {
 
     // HOOK DE DETALLES DEL POKEMON
     const { 
+        name,
         loading,
         pokemon,
-        getPokemon
+        getPokemon,
+        evolutions
     } = usePokemonDetail();
 
     const navigate = useNavigate();
@@ -30,7 +32,11 @@ const PokemonDetail = () => {
 
     useEffect(() => {
         getPokemon();
-    }, []);
+    }, [name]);
+
+    useEffect(() => {
+        console.log(`Loading details for Pokémon: ${name}`);
+    }, [name]);
 
     return (
         <>
@@ -45,7 +51,7 @@ const PokemonDetail = () => {
                     { pokemon && (
                         <div className="pokemon-detail" style={{ background: `linear-gradient(145deg, ${pokemon.color},rgb(54, 54, 54))` }}>
                             {/* From Uiverse.io by Jedi-hongbin */}
-                            <button className="animated-button" onClick={() => navigate(-1)}>
+                            <button className="animated-button" onClick={() => navigate('/home-page')}>
                                 <AnimatedButton 
                                     text='Back' 
                                     icon={
@@ -85,6 +91,18 @@ const PokemonDetail = () => {
                                             <li key={ab}>{formatAbility(ab)}</li>
                                         ))}
                                     </ul>
+                                </div>
+
+                                <div className="evolutions">
+                                    <h2>Evolution Chain</h2>
+                                    <div className="evolution-chain">
+                                        {evolutions.map((evo) => (
+                                            <div key={evo.name} className="evo-card" onClick={() => navigate(`/pokemon/${evo.name}`)}>
+                                                <img src={evo.img} alt={evo.name} />
+                                                <p>{evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}</p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
                             </div>

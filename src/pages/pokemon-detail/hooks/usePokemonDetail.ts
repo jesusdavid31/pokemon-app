@@ -35,6 +35,7 @@ export const usePokemonDetail = () => {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [pokemon, setPokemon] = useState<any>(null);
+    const [evolutions, setEvolutions] = useState<any[]>([]);
 
     const getPokemon = async () => {
 
@@ -44,16 +45,9 @@ export const usePokemonDetail = () => {
             
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
-            if (!res.ok) {
-                Swal.fire('Error', 'Error fetching Pokémon details', 'error');
-                setLoading(false);
-                setPokemon(null);
-                navigate('/'); // Redirigir al inicio si hay un error
-                return;
-            }
+            if (!res.ok) throw new Error('Error fetching Pokémon');
 
             const data: Pokemon = await res.json();
-
             const typeList = data.types.map((t: any) => t.type.name);
             const primaryType = typeList[0];
             let color = typeColorMap[primaryType] || '#ccc';
@@ -78,18 +72,51 @@ export const usePokemonDetail = () => {
                 abilities: data.abilities.map((a: any) => a.ability.name),
             });
 
-            setLoading(false);
+             // === Obtener cadena de evolución ===
+            const speciesRes = await fetch(data.species.url);
+            const speciesData = await speciesRes.json();
+
+            const evolutionRes = await fetch(speciesData.evolution_chain.url);
+            const evolutionData = await evolutionRes.json();
+
+            const chain: string[] = [];
+            const collectEvolutions = (node: any) => {
+                if (!node) return;
+                chain.push(node.species.name);
+                node.evolves_to.forEach((evo: any) => collectEvolutions(evo));
+            };
+
+            collectEvolutions(evolutionData.chain);
+
+            // Obtener imágenes para cada evolución
+            const evolutionDetails = await Promise.all(
+                chain.map(async (pokeName) => {
+                    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
+                    const data = await res.json();
+                    return {
+                        name: data.name,
+                        img: data.sprites?.other?.['official-artwork']?.front_default,
+                    };
+                })
+            );
+
+            setEvolutions(evolutionDetails);
 
         } catch (error: any) {
             console.error('Error fetching Pokémon details:', error);
             Swal.fire('Error', 'Error fetching Pokémon details', 'error');
+            navigate('/');
+        } finally {
+            setLoading(false);
         }
 
     }
 
     return { 
+        name,
         loading,
         pokemon, 
+        evolutions,
         getPokemon,
     };
 };
