@@ -173,7 +173,7 @@ const HomePage = () => {
                                 </div>
 
                                 {lookingForPokemon && !searchedPokemon && (
-                                    <div className="without-results" style={{ minWidth: '400px', width: '100%', height: 'auto' }}>
+                                    <div className="without-results" style={{ width: '100%', height: 'auto' }}>
                                         <div className='without-results__title'>
                                             <h2>Pokémon not found</h2>
                                             <p>Please try searching for another Pokémon.</p>

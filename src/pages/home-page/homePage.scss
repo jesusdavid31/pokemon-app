@@ -25,6 +25,10 @@
             padding: 20px;
         }
 
+        @media (max-width: 450px) {
+            max-width: 90%;
+        }
+
         .error-text {
             color: #fcd000;
             font-size: 1.1rem;
@@ -204,16 +208,25 @@
             }
         }
 
-        .without-results__title {
-            text-align: center;
-            font-size: 1.5rem;
-            color: #fcd000;
-            margin-top: 20px;
+        .without-results {
+            min-width: 400px;
 
-            h2, p {
-                margin: 0px;
+            @media (max-width: 450px) {
+                min-width: 90%;
+            }
+
+            .without-results__title {
+                text-align: center;
+                font-size: 1.5rem;
+                color: #fcd000;
+                margin-top: 20px;
+    
+                h2, p {
+                    margin: 0px;
+                }
             }
         }
+
 
         /* From Uiverse.io by Smit-Prajapati */ 
         @keyframes slideInSearch {

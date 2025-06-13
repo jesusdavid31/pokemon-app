@@ -34,10 +34,6 @@ const PokemonDetail = () => {
         getPokemon();
     }, [name]);
 
-    useEffect(() => {
-        console.log(`Loading details for Pokémon: ${name}`);
-    }, [name]);
-
     return (
         <>
             { loading ? (

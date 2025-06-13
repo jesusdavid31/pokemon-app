@@ -72,27 +72,44 @@ export const usePokemonDetail = () => {
                 abilities: data.abilities.map((a: any) => a.ability.name),
             });
 
-             // === Obtener cadena de evolución ===
+            // === Obtener cadena de evolución ===
+            // Hacemos una petición a la API para obtener los detalles de la especie del Pokémon.
+            // Esto nos dará acceso a la cadena de evolución.
             const speciesRes = await fetch(data.species.url);
             const speciesData = await speciesRes.json();
 
+            // Petición para obtener toda la cadena de evolución desde la URL proporcionada por la especie.
             const evolutionRes = await fetch(speciesData.evolution_chain.url);
             const evolutionData = await evolutionRes.json();
 
+            // Creamos un array vacío donde guardaremos los nombres de todos los Pokémon en la cadena evolutiva.
             const chain: string[] = [];
+
+            // Función recursiva para recorrer la cadena de evolución y recoger los nombres de los Pokémon.
+            // Esta función toma un nodo de la cadena de evolución y añade el nombre del Pokémon al array `chain`.
+            // Luego, llama a sí misma para cada Pokémon que evoluciona a partir de este nodo.
+            // Esta es una función recursiva que se encargará de recorrer la cadena de evolución.
             const collectEvolutions = (node: any) => {
+                // Si el nodo es nulo, simplemente retornamos para evitar errores.
                 if (!node) return;
                 chain.push(node.species.name);
+                // Si el nodo tiene una evolución, llamamos a la función recursivamente para cada Pokémon que evoluciona de este nodo.
                 node.evolves_to.forEach((evo: any) => collectEvolutions(evo));
             };
 
+            // Llamamos la función con el nodo raíz de la cadena de evolución para empezar a recorrerla.
             collectEvolutions(evolutionData.chain);
 
             // Obtener imágenes para cada evolución
+            // Usamos Promise.all para hacer todas las peticiones en paralelo.
             const evolutionDetails = await Promise.all(
                 chain.map(async (pokeName) => {
+                    // Hacemos una petición a la API de Pokémon para obtener los detalles de cada Pokémon en la cadena evolutiva.
+                    // Usamos el nombre del Pokémon para construir la URL de la API.
                     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
                     const data = await res.json();
+                    // Retornamos un objeto con el nombre y la imagen del Pokémon.
+                    // La imagen se obtiene de la propiedad `sprites` del objeto `data`.
                     return {
                         name: data.name,
                         img: data.sprites?.other?.['official-artwork']?.front_default,
@@ -100,6 +117,7 @@ export const usePokemonDetail = () => {
                 })
             );
 
+            // Actualizamos el estado de las evoluciones con los detalles obtenidos.
             setEvolutions(evolutionDetails);
 
         } catch (error: any) {
