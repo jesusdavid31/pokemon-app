@@ -1,54 +1,90 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="100" alt="React logo" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1 align="center">Pokémon App</h1>
+<p align="center">Una aplicación web para explorar Pokémon usando la PokéAPI, construida con React, Vite y Zustand.</p>
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Demo en producción
 
-## Expanding the ESLint configuration
+👉 [Ver la aplicación en GitHub Pages](https://jesusdavid31.github.io/pokemon-app/#/home-page)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🧩 Tecnologías utilizadas
+
+- ⚛️ [React](https://reactjs.org/)
+- ⚡ [Vite](https://vitejs.dev/)
+- 🛠️ [TypeScript](https://www.typescriptlang.org/)
+- 🐱 [Zustand](https://zustand-demo.pmnd.rs/)
+- 🌐 [PokéAPI](https://pokeapi.co/)
+- 📦 [pnpm](https://pnpm.io/)
+
+---
+
+## 🛠️ Instalación y ejecución local
+
+Asegúrate de tener instalado [pnpm](https://pnpm.io/):
+
+```bash
+npm install -g pnpm
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Luego clona el repositorio y ejecuta:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+pnpm install
+pnpm dev
 ```
+
+La aplicación estará disponible en: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 📦 Scripts disponibles
+
+```bash
+pnpm dev         # Ejecuta el servidor de desarrollo
+pnpm build       # Compila el proyecto para producción (TypeScript + Vite)
+pnpm preview     # Sirve la app ya compilada
+pnpm lint        # Ejecuta el linter
+pnpm gh-deploy   # Compila y publica en GitHub Pages
+```
+
+---
+
+## 🌍 Despliegue en GitHub Pages
+
+Este proyecto está configurado para desplegarse en la rama `gh-pages`.  
+Para hacerlo, simplemente ejecuta:
+
+```bash
+pnpm gh-deploy
+```
+
+> Se utiliza `HashRouter` para garantizar la compatibilidad con GitHub Pages y evitar errores 404 en rutas dinámicas.
+
+---
+
+## 📁 Estructura del proyecto (simplificada)
+
+```
+src/
+├── assets/              # Imágenes y recursos estáticos
+├── components/          # Componentes reutilizables
+├── layouts/             # Layouts de rutas. Ej: BlankLayout usa <Outlet /> para representar rutas hijas
+├── pages/               # Páginas principales (Home, Detalle, etc.)
+├── routes/              # Definición de rutas
+├── store/              # Estado global con Zustand
+└── main.tsx             # Punto de entrada principal
+```
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la licencia MIT.
+
+> ⚠️ Este repositorio es de solo lectura. No se aceptan contribuciones externas ni pull requests.
